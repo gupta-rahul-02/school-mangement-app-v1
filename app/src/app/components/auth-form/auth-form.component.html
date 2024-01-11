@@ -1,7 +1,7 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title *ngIf="isRegistered; else elseBlock">Login</mat-card-title>
-    <ng-template #elseBlock>Signup</ng-template>
+    <ng-template #elseBlock><mat-card-title>Sign Up</mat-card-title></ng-template>
   </mat-card-header>
 
   <mat-card-content>
@@ -26,6 +26,11 @@
         >
           Email is required
         </div>
+        <div 
+          class="error"
+          *ngIf="authForm.get('email').hasError('email')"> 
+          Please provide proper email
+          </div>
         <mat-form-field class="full-width">
           <input
             matInput
@@ -105,6 +110,11 @@
           >
             Email is required.
           </div>
+          <div 
+          class="error"
+          *ngIf="authForm.get('email').hasError('email')"> 
+          Please provide proper email
+          </div>
           <mat-form-field class="full-width">
             <input
               matInput
@@ -148,12 +158,12 @@
 
       <p class="signupLink" *ngIf="isRegistered; else elseBlock4">
         Dont have account?
-        <a routerLink="/login" (click)="toggleIsRegistered()">SignUp</a>
+        <a routerLink="/" (click)="toggleIsRegistered()">SignUp</a>
       </p>
       <ng-template #elseBlock4>
         <p class="signupLink">
           Have a account ?
-          <a routerLink="/login" (click)="toggleIsRegistered()">Login</a>
+          <a routerLink="/" (click)="toggleIsRegistered()">Login</a>
         </p>
       </ng-template>
       <p>{{ message }}</p>

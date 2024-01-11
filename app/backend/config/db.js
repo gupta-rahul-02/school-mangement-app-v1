@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const connectionWiithDb = () =>{
-    mongoose.connect("mongodb+srv://webbybutterrahul:IndiaRahul11@school-management.4kdljeu.mongodb.net/?retryWrites=true&w=majority",)
+    mongoose.connect(process.env.DATABASE_STRING)
     .then(console.log('Db Connected'))
     .catch(error => {
         console.log('Db connection failed')

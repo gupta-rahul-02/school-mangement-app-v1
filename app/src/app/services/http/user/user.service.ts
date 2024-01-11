@@ -17,6 +17,6 @@ export class UserService {
   }
 
   login(obj:object){
-    return this.http.post('http://localhost:3000/api/v1/user/login',obj)
+    return this.http.post('http://localhost:3000/api/v1/user/login',obj,{ withCredentials: true })
   }
 }
