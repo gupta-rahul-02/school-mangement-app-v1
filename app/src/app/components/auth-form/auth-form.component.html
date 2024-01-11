@@ -1,0 +1,102 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title *ngIf="isRegistered; else elseBlock">Login</mat-card-title>
+    <ng-template #elseBlock>Signup</ng-template>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form class="container" [formGroup]="authForm" (ngSubmit)="authData()">
+      <div class="container" *ngIf="isRegistered; else block2">
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            class="full"
+            placeholder="email"
+            name="email"
+            formControlName="email"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input
+            matInput
+            class="full"
+            placeholder="password"
+            name="password"
+            formControlName="password"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <ng-template #block2>
+        <div class="container">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              class="full"
+              placeholder="firstName"
+              name="firstName"
+              formControlName="firstName"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              class="full"
+              placeholder="lastName"
+              name="lastName"
+              formControlName="lastName"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              class="full"
+              placeholder="email"
+              name="email"
+              formControlName="email"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              class="full"
+              placeholder="password"
+              name="password"
+              formControlName="password"
+              required
+            />
+          </mat-form-field>
+        </div>
+      </ng-template>
+      <button
+        mat-raised-button
+        color="primary"
+        *ngIf="isRegistered; else elseBlock3"
+        
+      >
+        Login
+      </button>
+      <ng-template #elseBlock3
+        ><button mat-raised-button color="primary" type="submit" #elseBlock >
+          Signup
+        </button></ng-template
+      >
+        
+      <p class="signupLink" *ngIf="isRegistered; else elseBlock4">
+        Dont have account?
+        <a routerLink="/login" (click)="toggleIsRegistered()">SignUp</a>
+      </p>
+      <ng-template #elseBlock4>
+        <p class="signupLink">
+          Have a account ?
+          <a routerLink="/login" (click)="toggleIsRegistered()">Login</a>
+        </p>
+      </ng-template>
+      <p >{{message}}</p>
+    </form>
+  </mat-card-content>
+</mat-card>
