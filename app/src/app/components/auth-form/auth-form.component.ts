@@ -16,10 +16,10 @@ export class AuthFormComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {}
   ngOnInit(): void {
     this.authForm = new FormGroup({
-      email: new FormControl(Validators.required) ,
-      password: new FormControl(Validators.required),
-      firstName: new FormControl(Validators.required),
-      lastName: new FormControl(Validators.required),
+      email: new FormControl('',[Validators.required,Validators.email]) ,
+      password: new FormControl('',[Validators.required, Validators.minLength(6)]),
+      firstName: new FormControl('',[Validators.required]),
+      lastName: new FormControl('',[Validators.required]),
     });
   }
 

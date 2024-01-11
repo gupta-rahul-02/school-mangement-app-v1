@@ -17,6 +17,15 @@
             required
           />
         </mat-form-field>
+        <div
+          class="error"
+          *ngIf="
+            authForm.get('email').touched &&
+            authForm.get('email').hasError('required')
+          "
+        >
+          Email is required
+        </div>
         <mat-form-field class="full-width">
           <input
             matInput
@@ -27,6 +36,15 @@
             required
           />
         </mat-form-field>
+        <div
+          class="error"
+          *ngIf="
+            authForm.get('password').hasError('required') &&
+            authForm.get('password').touched
+          "
+        >
+          Password is required.
+        </div>
       </div>
       <ng-template #block2>
         <div class="container">
@@ -40,6 +58,15 @@
               required
             />
           </mat-form-field>
+          <div
+            class="error"
+            *ngIf="
+              authForm.get('firstName').hasError('required') &&
+              authForm.get('firstName').touched
+            "
+          >
+            First Name is required.
+          </div>
           <mat-form-field class="full-width">
             <input
               matInput
@@ -50,6 +77,15 @@
               required
             />
           </mat-form-field>
+          <div
+            class="error"
+            *ngIf="
+              authForm.get('lastName').hasError('required') &&
+              authForm.get('lastName').touched
+            "
+          >
+            Last Name is required.
+          </div>
           <mat-form-field class="full-width">
             <input
               matInput
@@ -60,6 +96,15 @@
               required
             />
           </mat-form-field>
+          <div
+            class="error"
+            *ngIf="
+              authForm.get('email').hasError('required') &&
+              authForm.get('email').touched
+            "
+          >
+            Email is required.
+          </div>
           <mat-form-field class="full-width">
             <input
               matInput
@@ -70,22 +115,37 @@
               required
             />
           </mat-form-field>
+          <div
+            class="error"
+            *ngIf="
+              authForm.get('password').hasError('required') &&
+              authForm.get('password').touched
+            "
+          >
+            Password is required.
+          </div>
         </div>
       </ng-template>
       <button
         mat-raised-button
         color="primary"
         *ngIf="isRegistered; else elseBlock3"
-        
+        [disabled]="authForm.invalid"
       >
         Login
       </button>
       <ng-template #elseBlock3
-        ><button mat-raised-button color="primary" type="submit" #elseBlock >
+        ><button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          #elseBlock
+          [disabled]="authForm.invalid"
+        >
           Signup
         </button></ng-template
       >
-        
+
       <p class="signupLink" *ngIf="isRegistered; else elseBlock4">
         Dont have account?
         <a routerLink="/login" (click)="toggleIsRegistered()">SignUp</a>
@@ -96,7 +156,7 @@
           <a routerLink="/login" (click)="toggleIsRegistered()">Login</a>
         </p>
       </ng-template>
-      <p >{{message}}</p>
+      <p>{{ message }}</p>
     </form>
   </mat-card-content>
 </mat-card>
