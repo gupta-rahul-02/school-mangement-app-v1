@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/http/user/user.service';
+import { TokenService } from 'src/app/services/token/token.service';
 
 @Component({
   selector: 'app-auth-form',
@@ -13,7 +14,7 @@ export class AuthFormComponent implements OnInit {
   isRegistered: boolean = false;
   formData: object = {};
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router, private tokenService: TokenService) {}
   ngOnInit(): void {
     this.authForm = new FormGroup({
       email: new FormControl('',[Validators.required,Validators.email]) ,
@@ -34,7 +35,9 @@ export class AuthFormComponent implements OnInit {
         if(res.success){
           this.message = 'Successfully logged in !!'
         }
-        this.userService.user.next(res);
+        // this.userService.user.next(res);
+        console.log(res.token)
+        this.tokenService.store(res.token)
       });
     } else {
       this.userService.signup(this.formData).subscribe((res:any) => {
