@@ -5,6 +5,7 @@ import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
 import { authGuard } from './guard/auth.guard';
 
+
 const routes: Routes = [
 {
   path:'profile',
@@ -24,7 +25,13 @@ const routes: Routes = [
   path:'attendance',
   component:AttendanceComponent,
   canActivate:[authGuard]
+},
+{
+  path:"users",
+  loadChildren:() => import('../app/components/users/users.module').then(m => m.UsersModule),
+  canActivate:[authGuard]
 }
+
 ];
 
 @NgModule({

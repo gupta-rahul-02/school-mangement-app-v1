@@ -1,20 +1,18 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/http/user/user.service';
 import { TokenService } from 'src/app/services/token/token.service';
-
 @Component({
-  selector: 'app-users-table',
-  templateUrl: './users-table.component.html',
-  styleUrls: ['./users-table.component.scss']
+  selector: 'app-all',
+  templateUrl: './all.component.html',
+  styleUrls: ['./all.component.scss']
 })
-export class UsersTableComponent  implements OnInit {
-  constructor(private tokenService: TokenService, private userService:UserService){
-
-  }
+export class AllComponent {
+  constructor(private tokenService: TokenService, private userService:UserService){}
 
   token:string = ''
-  user:any  
-  dataSource: any 
+  user:any
+  dataSource:any
+
 
   ngOnInit(): void {
     this.token = this.tokenService.retriveToken()
@@ -34,15 +32,9 @@ export class UsersTableComponent  implements OnInit {
     })
   }
 
+  displayedColumns: string[] = ['sr.no','name',"email","role","viewProfile"]
 
   viewProfile(element:any){
     console.log('Profile')
   }
-
-  // displayedColumns: string[] = ['id', 'name', 'weight', 'symbol'];
-  displayedColumns: string[] = ['sr.no','name',"email","role","viewProfile"]
-  //dataSource = this.ELEMENT_DATA;
-
-  
-
 }

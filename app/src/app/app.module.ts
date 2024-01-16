@@ -11,7 +11,8 @@ import { MatModule } from './appModules/mat/mat.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './components/profile/profile.component';
-import { UsersTableComponent } from './components/users-table/users-table.component';
+
+
 
 
 
@@ -22,7 +23,8 @@ import { UsersTableComponent } from './components/users-table/users-table.compon
     HeaderComponent,
     AuthFormComponent,
     ProfileComponent,
-    UsersTableComponent,
+    
+    
    
    
     
