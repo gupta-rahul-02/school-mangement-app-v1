@@ -11,7 +11,8 @@ import { TokenService } from 'src/app/services/token/token.service';
 })
 export class AuthFormComponent implements OnInit {
   authForm: any;
-  isRegistered: boolean = false;
+  signUpForm:any
+  isRegistered: boolean = true;
   formData: object = {};
 
   constructor(private userService: UserService, private router: Router, private tokenService: TokenService) {}
@@ -19,15 +20,42 @@ export class AuthFormComponent implements OnInit {
     this.authForm = new FormGroup({
       email: new FormControl('',[Validators.required,Validators.email]) ,
       password: new FormControl('',[Validators.required]),
-      firstName: new FormControl('',[Validators.required]),
-      lastName: new FormControl('',[Validators.required]),
+      
     });
+    this.signUpForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+    })
   }
 
   user: object = {};
   message:string=''
 
-  authData() {
+  signUp(){
+    this.formData = this.signUpForm.value
+    console.log(this.formData)
+    this.userService.signup(this.formData).subscribe((res:any) =>{
+      console.log(res)
+      this.tokenService.store(res.token)
+      this.router.navigate(['/profile']);
+    })
+
+  }
+
+  authData(){
+    this.formData = this.authForm.value;
+    this.userService.login(this.formData).subscribe((res:any) => {
+      console.log(res)  
+      if(res.success){
+        this.message = 'Successfully logged in !!'
+      }
+      this.tokenService.store(res.token)
+      this.router.navigate(['/profile']);
+  })
+
+  // authData() {
     this.formData = this.authForm.value;
     if (this.isRegistered) {
       this.userService.login(this.formData).subscribe((res:any) => {
@@ -40,14 +68,14 @@ export class AuthFormComponent implements OnInit {
         this.tokenService.store(res.token)
       });
     } else {
-      this.userService.signup(this.formData).subscribe((res:any) => {
+      this.userService.signup(this.signUpForm).subscribe((res:any) => {
         console.log(res);
         if(res.success){
           this.message = 'Successfully signed up !!'
         }
-        this.userService.user.next(res)
+        // this.userService.user.next(res)
       });
-      console.log(this.formData);
+      console.log(this.signUpForm);
     }
 
     this.router.navigate(['/profile']);

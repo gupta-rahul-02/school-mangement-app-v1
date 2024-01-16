@@ -1,12 +1,19 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title *ngIf="isRegistered; else elseBlock">Login</mat-card-title>
-    <ng-template #elseBlock><mat-card-title>Sign Up</mat-card-title></ng-template>
+    <ng-template #elseBlock
+      ><mat-card-title>Sign Up</mat-card-title></ng-template
+    >
   </mat-card-header>
 
   <mat-card-content>
-    <form class="container" [formGroup]="authForm" (ngSubmit)="authData()">
-      <div class="container" *ngIf="isRegistered; else block2">
+    <form
+      class="container"
+      [formGroup]="authForm"
+      (ngSubmit)="authData()"
+      *ngIf="isRegistered; else block1"
+    >
+      <div class="container">
         <mat-form-field class="full-width">
           <input
             matInput
@@ -26,11 +33,9 @@
         >
           Email is required
         </div>
-        <div 
-          class="error"
-          *ngIf="authForm.get('email').hasError('email')"> 
+        <div class="error" *ngIf="authForm.get('email').hasError('email')">
           Please provide proper email
-          </div>
+        </div>
         <mat-form-field class="full-width">
           <input
             matInput
@@ -51,46 +56,21 @@
           Password is required.
         </div>
       </div>
-      <ng-template #block2>
+
+      <button mat-raised-button color="primary" [disabled]="authForm.invalid">
+        Login
+      </button>
+
+      <p class="signupLink">
+        Dont have account?
+        <a routerLink="/signup" (click)="toggleIsRegistered()">SignUp</a>
+      </p>
+      <p>{{ message }}</p>
+    </form>
+
+    <ng-template #block1>
+      <form class="container" [formGroup]="signUpForm" (ngSubmit)="signUp()">
         <div class="container">
-          <mat-form-field class="full-width">
-            <input
-              matInput
-              class="full"
-              placeholder="firstName"
-              name="firstName"
-              formControlName="firstName"
-              required
-            />
-          </mat-form-field>
-          <div
-            class="error"
-            *ngIf="
-              authForm.get('firstName').hasError('required') &&
-              authForm.get('firstName').touched
-            "
-          >
-            First Name is required.
-          </div>
-          <mat-form-field class="full-width">
-            <input
-              matInput
-              class="full"
-              placeholder="lastName"
-              name="lastName"
-              formControlName="lastName"
-              required
-            />
-          </mat-form-field>
-          <div
-            class="error"
-            *ngIf="
-              authForm.get('lastName').hasError('required') &&
-              authForm.get('lastName').touched
-            "
-          >
-            Last Name is required.
-          </div>
           <mat-form-field class="full-width">
             <input
               matInput
@@ -104,18 +84,19 @@
           <div
             class="error"
             *ngIf="
-              authForm.get('email').hasError('required') &&
-              authForm.get('email').touched
+              signUpForm.get('email').touched &&
+              signUpForm.get('email').hasError('required')
             "
           >
-            Email is required.
+            Email is required
           </div>
-          <div 
-          class="error"
-          *ngIf="authForm.get('email').hasError('email')"> 
-          Please provide proper email
+          <div
+            class="error"
+            *ngIf="signUpForm.get('email').hasError('email')"
+          >
+            Please provide proper email
           </div>
-          <mat-form-field class="full-width">
+          <mat-form-field>
             <input
               matInput
               class="full"
@@ -128,45 +109,67 @@
           <div
             class="error"
             *ngIf="
-              authForm.get('password').hasError('required') &&
-              authForm.get('password').touched
+              signUpForm.get('password').hasError('required') &&
+              signUpForm.get('password').touched
             "
           >
             Password is required.
           </div>
+          <mat-form-field>
+            <input
+              matInput
+              class="full"
+              placeholder="firstName"
+              name="firstName"
+              formControlName="firstName"
+              required
+            />
+          </mat-form-field>
+          <div
+            class="error"
+            *ngIf="
+              signUpForm.get('firstName').hasError('required') &&
+              signUpForm.get('firstName').touched
+            "
+          >
+            First Name is required.
+          </div>
+          <mat-form-field>
+            <input
+              matInput
+              class="full"
+              placeholder="lastName"
+              name="lastName"
+              formControlName="lastName"
+              required
+            />
+          </mat-form-field>
+          <div
+            class="error"
+            *ngIf="
+              signUpForm.get('lastName').hasError('required') &&
+              signUpForm.get('lastName').touched
+            "
+          >
+            Last Name is required.
+          </div>
         </div>
-      </ng-template>
-      <button
-        mat-raised-button
-        color="primary"
-        *ngIf="isRegistered; else elseBlock3"
-        [disabled]="authForm.invalid"
-      >
-        Login
-      </button>
-      <ng-template #elseBlock3
-        ><button
+        <button
           mat-raised-button
           color="primary"
-          type="submit"
-          #elseBlock
-          [disabled]="authForm.invalid"
+          [disabled]="signUpForm.invalid"
         >
           Signup
-        </button></ng-template
-      >
-
-      <p class="signupLink" *ngIf="isRegistered; else elseBlock4">
-        Dont have account?
-        <a routerLink="/" (click)="toggleIsRegistered()">SignUp</a>
-      </p>
-      <ng-template #elseBlock4>
+        </button>
         <p class="signupLink">
           Have a account ?
-          <a routerLink="/" (click)="toggleIsRegistered()">Login</a>
+          <a routerLink="/login" (click)="toggleIsRegistered()">Login</a>
         </p>
-      </ng-template>
-      <p>{{ message }}</p>
-    </form>
+      </form>
+    </ng-template>
   </mat-card-content>
+  
+
 </mat-card>
+
+

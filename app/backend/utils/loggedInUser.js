@@ -2,7 +2,7 @@ const user = require('../models/user')
 const jwt = require('jsonwebtoken')
 exports.loggedInUser = async(req,res) =>{
     try {
-        const token= req.cookies.token || req.header("Authorization").replace("Bearer","");
+        const token= req.cookies.token 
         if(!token){
             res.send('Login first to access')
         }

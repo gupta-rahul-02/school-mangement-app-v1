@@ -3,19 +3,27 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
+import { authGuard } from './guard/auth.guard';
 
 const routes: Routes = [
 {
   path:'profile',
-  component:ProfileComponent
+  component:ProfileComponent,
+  canActivate:[authGuard]
+
 },
 {
-  path:'',
+  path:'login',
+  component:AuthFormComponent
+},
+{
+  path:'signup',
   component:AuthFormComponent
 },
 {
   path:'attendance',
-  component:AttendanceComponent
+  component:AttendanceComponent,
+  canActivate:[authGuard]
 }
 ];
 

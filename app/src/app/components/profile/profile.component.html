@@ -1,13 +1,30 @@
-<p>profile works!</p>
 <mat-card>
     <mat-card-header>
        <mat-card-title>
-        <mat-icon>account_circle</mat-icon> Admin Panel
+        <div class="flex">
+            <mat-icon>account_circle</mat-icon>
+            <h1>{{user.role | titlecase}} Panel</h1>
+        </div>
+       
        </mat-card-title> 
     </mat-card-header>
+
     <mat-card-content>
-        <!-- <span><h3>{{user.firstName}}</h3></span> -->
-        <button (click)="getUser()">CLick me</button>
+        <div >
+            <div  *ngFor="let obj of userArray">
+                <div class="flex" *ngFor="let prop of obj | keyvalue">
+                <h3 >{{getTitleCase(prop.key) }}</h3>
+                <p>{{prop.value}}</p>
+                </div>
+                <hr>
+            </div>
+            <div>
+                <h3>Attendance:- {{user.attendance}}</h3>
+            </div>
+        </div>
+        
     </mat-card-content>
     
 </mat-card>
+
+<app-users-table></app-users-table>

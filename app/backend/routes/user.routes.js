@@ -1,5 +1,5 @@
 const express = require('express')
-const { signUp, login, getUsers, updateRole, getStudents, getUserOfSpecificRole } = require('../controllers/user.controller')
+const { signUp, login, getUsers, updateRole, getUserOfSpecificRole, getLoggedInUser } = require('../controllers/user.controller')
 const {customRoles, isLoggedIn} = require('../middlewares/users.middleware')
 const router = express.Router()
 
@@ -9,4 +9,5 @@ router.route('/login').post(login)
 router.route('/users').get(isLoggedIn,customRoles('admin','teacher'),getUsers)
 router.route('/update').put(isLoggedIn,customRoles('admin','teacher'),updateRole)
 router.route('/roles/:role').get(getUserOfSpecificRole)
+router.route('/token/:tokenRecevied').get(getLoggedInUser)
 module.exports = router

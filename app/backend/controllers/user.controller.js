@@ -95,14 +95,23 @@ exports.updateRole = async(req,res,next) =>{
 
 exports.getUserOfSpecificRole = async(req,res,next) =>{
     const role = req.params.role
-    console.log(role)
+    //console.log(role)
     const users = await User.find({role:role})
     res.json({users:users})
 }
 
 
-// exports.getLoggedInUser = async(req,res,next) =>{
+exports.getLoggedInUser = async(req,res,next) =>{
+    //const token = req.sessionStorage.getItem("token")
 
-// } 
+    const tokenRecevied = req.params.tokenRecevied
+    const decoded = jwt.verify(tokenRecevied,process.env.JWT_SECRET)
+    const user = await User.findById(decoded.id)
+    res.send(user)
+    // console.log(req)
+    // const token= req.cookies.token || req.header("Authorization").replace("Bearer","");
+    // //console.log(token)
+    // res.send(token)
+} 
 
 

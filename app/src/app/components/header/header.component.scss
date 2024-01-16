@@ -1,0 +1,31 @@
+.grid-container{
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: repeat(44, 1fr);
+}
+
+.item1{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    padding-top: 10px;
+}
+
+.item2{
+    grid-column-start: 6;
+    grid-column-end: 9;
+}
+.item3{
+    grid-column-start: 10;
+    grid-column-end: 13;
+}
+
+.item4{
+    grid-column-start: 14;
+    grid-column-end: 17;
+}
+
+.item5{
+    padding-top: 5px;
+    grid-column-start:43;
+    grid-column-end: 45;
+}

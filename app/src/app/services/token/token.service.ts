@@ -8,8 +8,6 @@ export class TokenService {
   private key = 'token'
   
    store(token:string){
-    console.log('called')
-    console.log(token)
     sessionStorage.setItem(this.key,token)
   }
 

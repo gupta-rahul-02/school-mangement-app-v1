@@ -1,7 +1,20 @@
 <mat-toolbar color="primary">
-    <span>School Management</span>
+  <div class="grid-container">
+    <span class="item1">School Management</span>
     <span class="spacer"></span>
-    <button mat-button routerLink="/profile">Profile</button>
-    <button mat-button routerLink="/attendance">Attendance</button>
-    <button mat-button routerLink="/">Login</button>
+    <button mat-button routerLink="/profile" class="item2">Profile</button>
+    <button mat-button routerLink="/attendance" class="item3">Attendance</button>
+    <button mat-button routerLink="/login" class="item4">Login</button>
+    <span class="spacer"></span>
+    <mat-icon class="item5" [mat-menu-trigger-for]="menu">menu</mat-icon>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="">All Users Portal</button>
+      <button mat-menu-item routerLink="">Students Portal</button>
+      <button mat-menu-item routerLink="">Teachers Portal</button>
+    </mat-menu>
+    
+  </div>
+   
+   
+   
   </mat-toolbar>
