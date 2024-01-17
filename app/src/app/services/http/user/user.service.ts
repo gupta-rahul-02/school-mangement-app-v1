@@ -12,7 +12,9 @@ export class UserService {
 
   // user:any = new BehaviorSubject('')
   usersList:any = new BehaviorSubject('')
-
+  userRole:any = new BehaviorSubject('user')
+  user:any
+ =  new BehaviorSubject('')
   signup(obj:object){
     return this.http.post('http://localhost:3000/api/v1/user/signup',obj,{withCredentials:true})
   }
@@ -29,5 +31,17 @@ export class UserService {
     const sessionToken:any = sessionStorage.getItem("token");
     const headers = new HttpHeaders().set('Authorization',sessionToken)
     return this.http.get('http://localhost:3000/api/v1/user/users',{headers})
+  }
+
+  logout(){
+    const sessionToken:any = sessionStorage.getItem("token");
+    const headers = new HttpHeaders().set('Authorization',sessionToken)
+    return this.http.get('http://localhost:3000/api/v1/user/users',{headers})
+  }
+
+  delete(obj:any){
+    console.log(obj)
+    const url = `http://localhost:3000/api/v1/user/delete/${obj}`
+    return this.http.delete(url)
   }
 }

@@ -42,7 +42,13 @@
   <ng-container matColumnDef="viewProfile">
     <th mat-header-cell *matHeaderCellDef> Actions </th>
     <td mat-cell *matCellDef="let element">
-      <button mat-raised-button (click)="viewProfile(element)" color="primary">View</button>
+      <button mat-raised-button (click)="viewProfile(element)" routerLink="/user" color="primary">View</button>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="removeUser">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-raised-button (click)="removeUser(element)" routerLink="/user" color="primary">Remove</button>
     </td>
   </ng-container>
 

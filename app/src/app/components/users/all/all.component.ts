@@ -32,9 +32,16 @@ export class AllComponent {
     })
   }
 
-  displayedColumns: string[] = ['sr.no','name',"email","role","viewProfile"]
+  displayedColumns: string[] = ['sr.no','name',"email","role","viewProfile","removeUser"]
 
   viewProfile(element:any){
-    console.log('Profile')
+    this.userService.user.next(element)
+    console.log(element)
+  }
+
+  removeUser(element:any){
+    this.userService.delete(element.email).subscribe((res) =>{
+      console.log(res)
+    })
   }
 }

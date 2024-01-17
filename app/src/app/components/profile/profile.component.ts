@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
     this.token = this.tokenService.retriveToken();
     this.userService.getUser(this.token).subscribe((res) => {
       this.user = res;
+      this.userService.userRole.next(this.user.role)
       this.userArray = Object.keys(this.user)
         .filter((key) => !this.propsToRemove.includes(key))
         .map((key) => ({ [key]: this.user[key] }));

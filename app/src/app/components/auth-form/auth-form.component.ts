@@ -47,41 +47,19 @@ export class AuthFormComponent implements OnInit {
   authData(){
     this.formData = this.authForm.value;
     this.userService.login(this.formData).subscribe((res:any) => {
-      console.log(res)  
       if(res.success){
         this.message = 'Successfully logged in !!'
-      }
-      this.tokenService.store(res.token)
-      this.router.navigate(['/profile']);
-  })
-
-  // authData() {
-    this.formData = this.authForm.value;
-    if (this.isRegistered) {
-      this.userService.login(this.formData).subscribe((res:any) => {
-        console.log(res)  
-        if(res.success){
-          this.message = 'Successfully logged in !!'
-        }
-        // this.userService.user.next(res);
-        console.log(res.token)
         this.tokenService.store(res.token)
-      });
-    } else {
-      this.userService.signup(this.signUpForm).subscribe((res:any) => {
-        console.log(res);
-        if(res.success){
-          this.message = 'Successfully signed up !!'
-        }
-        // this.userService.user.next(res)
-      });
-      console.log(this.signUpForm);
-    }
-
-    this.router.navigate(['/profile']);
+      this.router.navigate(['/profile']);
+      }else{
+        this.message = "Check credentials !!"
+      }  
+  })
   }
 
   toggleIsRegistered() {
     this.isRegistered = !this.isRegistered;
   }
+
+
 }

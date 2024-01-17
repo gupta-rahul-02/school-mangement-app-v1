@@ -7,14 +7,20 @@ export class TokenService {
   constructor() { }
   private key = 'token'
   
+  
    store(token:string){
     sessionStorage.setItem(this.key,token)
+  }
+
+  logout(){
+    window.sessionStorage.clear()
   }
 
    retriveToken(){
     let storedToken:any= sessionStorage.getItem(this.key);
     if(!storedToken) throw 'no token found'
     return storedToken
-
   }
+
+
 }

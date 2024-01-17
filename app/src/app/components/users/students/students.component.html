@@ -1,6 +1,6 @@
 <p>students works!</p>
 <h1>All Users</h1>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table *ngIf="dataSource.length > 0;" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!-- <h1>{{dataSource}}</h1> -->
 
   <!--- Note that these columns can be defined in any order.
@@ -52,4 +52,6 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
 </table>
+
+
 
