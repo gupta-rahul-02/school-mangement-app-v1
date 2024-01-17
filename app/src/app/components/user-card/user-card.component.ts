@@ -7,12 +7,25 @@ import { UserService } from 'src/app/services/http/user/user.service';
   styleUrls: ['./user-card.component.scss']
 })
 export class UserCardComponent implements OnInit {
+ userArray:any
+ keyTitle:any
+ user:any
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     this.userService.user.subscribe((res:any) =>{
       console.log(res)
+      this.user = res
+      this.userService.userArray(res).subscribe((res2) =>{
+        this.userArray = res2
+      })
+
     } )
+  }
+
+  getTitleCase(key:any){
+    this.userService.getTitleCase(key).subscribe((res) =>{
+      this.keyTitle = res
+    })
+    return this.keyTitle
   }
   constructor(private userService:UserService){}
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,8 @@ export class UserService {
   usersList: any = new BehaviorSubject('');
   userRole: any = new BehaviorSubject('user');
   user: any = new BehaviorSubject('');
-  buttonFlag:any = new BehaviorSubject(false)
+  buttonFlag: any = new BehaviorSubject(false);
+
   signup(obj: object) {
     return this.http.post('http://localhost:3000/api/v1/user/signup', obj, {
       withCredentials: true,
@@ -49,5 +50,29 @@ export class UserService {
     console.log(obj);
     const url = `http://localhost:3000/api/v1/user/delete/${obj}`;
     return this.http.delete(url);
+  }
+
+  userArray(user: any) : Observable<any> {
+    const propsToRemove = [
+      '__v',
+      '_id',
+      'createdAt',
+      'updateAt',
+      'attendance',
+      'requestRole',
+    ];
+    const userArray = Object.keys(user)
+      .filter((key) => !propsToRemove.includes(key))
+      .map((key) => ({ [key]: user[key] }));
+
+    return of(userArray);
+  }
+
+  getTitleCase(key:any) :Observable<string> {
+    if(typeof key === 'string'){
+      return of((key as string).charAt(0).toUpperCase() + key.slice(1).toLowerCase());
+    }else{
+      return of('Unknown')
+    }
   }
 }
