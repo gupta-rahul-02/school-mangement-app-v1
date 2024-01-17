@@ -37,8 +37,8 @@ export class AuthFormComponent implements OnInit {
     this.formData = this.signUpForm.value
     console.log(this.formData)
     this.userService.signup(this.formData).subscribe((res:any) =>{
-      console.log(res)
       this.tokenService.store(res.token)
+      this.userService.buttonFlag.next(true)
       this.router.navigate(['/profile']);
     })
 
@@ -50,6 +50,7 @@ export class AuthFormComponent implements OnInit {
       if(res.success){
         this.message = 'Successfully logged in !!'
         this.tokenService.store(res.token)
+        this.userService.buttonFlag.next(true)
       this.router.navigate(['/profile']);
       }else{
         this.message = "Check credentials !!"

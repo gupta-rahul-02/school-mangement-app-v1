@@ -28,8 +28,6 @@ export class ProfileComponent implements OnInit {
       this.userArray = Object.keys(this.user)
         .filter((key) => !this.propsToRemove.includes(key))
         .map((key) => ({ [key]: this.user[key] }));
-        console.log(this.userArray)
-        console.log(typeof this.user.attendance)
     });
   }
 

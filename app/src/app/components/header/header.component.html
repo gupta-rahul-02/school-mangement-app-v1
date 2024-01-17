@@ -4,8 +4,8 @@
     <span class="spacer"></span>
     <button mat-button routerLink="/profile" class="item2">Profile</button>
     <button mat-button routerLink="/attendance" class="item3">Attendance</button>
-    <button mat-button routerLink="/login" class="item4">Login</button>
-    <button mat-button (click)="logout()" routerLink="/" class="item4">Logout</button>
+    <button mat-button routerLink="/login" class="item4" *ngIf="!button">Login</button>
+    <button mat-button (click)="logout()" routerLink="/" class="item4" *ngIf="button">Logout</button>
     <span class="spacer"></span>
     <mat-icon class="item5" [mat-menu-trigger-for]="menu" *ngIf="userRoleOfLoggedInUser == 'admin'">menu</mat-icon>
     <mat-menu   #menu="matMenu">

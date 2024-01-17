@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/http/user/user.service';
 import { TokenService } from 'src/app/services/token/token.service';
 
@@ -10,17 +10,22 @@ import { TokenService } from 'src/app/services/token/token.service';
 export class HeaderComponent implements OnInit{
 
   constructor(private userService: UserService, private tokenService:TokenService){}
+
+  userRoleOfLoggedInUser:any 
+  button:any
+
   ngOnInit(): void {
     this.userService.userRole.subscribe((res:any) => {
       this.userRoleOfLoggedInUser = res
     })
-    this.tokenService.retriveToken().subscribe((res:any) =>{
-      console.log(res)
+    this.userService.buttonFlag.subscribe((res:any) =>{
+      this.button = res
     })
   }
-  userRoleOfLoggedInUser:any 
+  
   logout(){
     this.tokenService.logout()
+    this.userService.buttonFlag.next(false)
     this.userService.logout().subscribe((res) =>{
       console.log(res)
     })
