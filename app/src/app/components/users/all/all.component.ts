@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/http/user/user.service';
 import { TokenService } from 'src/app/services/token/token.service';
 @Component({
@@ -7,12 +8,12 @@ import { TokenService } from 'src/app/services/token/token.service';
   styleUrls: ['./all.component.scss']
 })
 export class AllComponent {
-  constructor(private tokenService: TokenService, private userService:UserService){}
+  constructor(private tokenService: TokenService, private userService:UserService, private readonly route:ActivatedRoute){}
 
   token:string = ''
   user:any
   dataSource:any
-
+  role:any
 
   ngOnInit(): void {
     this.token = this.tokenService.retriveToken()
@@ -26,10 +27,29 @@ export class AllComponent {
     //   //   })
     //   // }
     // })
-    this.userService.usersList.subscribe((res2:any) => {
-      this.dataSource = res2.users
-      console.log(this.dataSource)
-    })
+    this.role = this.route.snapshot.paramMap.get('all')
+    console.log(this.role)
+    if(this.role === 'admin'){
+      this.userService.usersList.subscribe((res2:any) => {
+        this.dataSource = res2.users
+        console.log(this.dataSource)
+      })
+    }else if(this.role === 'student'){
+      this.userService.usersList.subscribe((res:any) => {
+        this.dataSource =res.users.filter((user: any) => user.role === 'student')
+        console.log( this.dataSource)
+      })
+    }else if(this.role === 'teacher'){
+      this.userService.usersList.subscribe((res:any) => {
+        this.dataSource =res.users.filter((user: any) => user.role === 'teacher')
+        console.log( this.dataSource)
+      })
+    }
+    
+    // this.userService.usersList.subscribe((res2:any) => {
+    //   this.dataSource = res2.users
+    //   console.log(this.dataSource)
+    // })
   }
 
   displayedColumns: string[] = ['sr.no','name',"email","role","viewProfile","removeUser"]

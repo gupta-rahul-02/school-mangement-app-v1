@@ -21,11 +21,9 @@ ngOnInit(): void {
        
       this.user = res
       //console.log(this.user)
-      if(this.user.role === 'admin'){
-        this.userService.getUsers().subscribe((res)  => {
-          this.userService.usersList.next(res)
-        })
-      }
+      this.userService.getUsers().subscribe((res)  => {
+        this.userService.usersList.next(res)
+      })
     })
     this.userService.usersList.subscribe((res2:any) => {
       this.dataSource = res2.users

@@ -12,7 +12,15 @@ const {
 const { customRoles, isLoggedIn } = require("../middlewares/users.middleware");
 const router = express.Router();
 
+
+
+// get req
+
+
+//post req
+
 router.route("/signup").post(signUp);
+router.post("/signup",signUp);
 router.route("/login").post(login);
 // router.route('/users').get(customRoles('admin'), getUsers)
 router

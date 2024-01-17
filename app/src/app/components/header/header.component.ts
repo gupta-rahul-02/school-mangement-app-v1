@@ -21,13 +21,20 @@ export class HeaderComponent implements OnInit{
     this.userService.buttonFlag.subscribe((res:any) =>{
       this.button = res
     })
+    console.log(this.button)
   }
   
   logout(){
     this.tokenService.logout()
     this.userService.buttonFlag.next(false)
     this.userService.logout().subscribe((res) =>{
+      console.log('enter')
       console.log(res)
     })
+  }
+
+
+  isShowStudentPortal(){
+    return this.userRoleOfLoggedInUser == 'admin' || this.userRoleOfLoggedInUser == 'teacher'
   }
 }

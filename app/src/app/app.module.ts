@@ -16,9 +16,6 @@ import { UserCardComponent } from './components/user-card/user-card.component';
 
 
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,11 +25,6 @@ import { UserCardComponent } from './components/user-card/user-card.component';
     HomeComponent,
     UserCardComponent,
     
-    
-   
-   
-    
-   
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UsersComponent } from './users.component';
-import { StudentsComponent } from './students/students.component';
-import { TeachersComponent } from './teachers/teachers.component';
 import { AllComponent } from './all/all.component';
 
 const routes: Routes = [
@@ -11,17 +9,17 @@ const routes: Routes = [
     component:UsersComponent,
     children:[
       {
-        path:'all',
+        path:':all',
         component:AllComponent
       },
-      {
-        path:'students',
-        component:StudentsComponent
-      },
-      {
-        path:'teachers',
-        component:TeachersComponent
-      }
+      // {
+      //   path:':all/students',
+      //   component:StudentsComponent
+      // },
+      // {
+      //   path:':all/teachers',
+      //   component:TeachersComponent
+      // }
     ]
   }
 ];

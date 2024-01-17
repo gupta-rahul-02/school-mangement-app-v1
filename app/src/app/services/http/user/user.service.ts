@@ -38,12 +38,19 @@ export class UserService {
     });
   }
 
-  logout() {
-    const sessionToken: any = sessionStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', sessionToken);
-    return this.http.get('http://localhost:3000/api/v1/user/users', {
-      headers,
-    });
+
+  // logout() {
+  //   console.log('logout')
+  //   const sessionToken: any = sessionStorage.getItem('token');
+  //   const headers = new HttpHeaders().set('Authorization', sessionToken);
+  //   return this.http.get('http://localhost:3000/api/v1/user/logout', {
+  //     headers,
+  //   });
+  // }
+
+  logout(){
+    console.log('frontend')
+    return this.http.get('http://localhost:3000/api/v1/user/logout')
   }
 
   delete(obj: any) {
