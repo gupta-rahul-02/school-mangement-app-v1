@@ -24,16 +24,10 @@
             required
           />
         </mat-form-field>
-        <div
-          class="error"
-          *ngIf="
-            authForm.get('email').touched &&
-            authForm.get('email').hasError('required')
-          "
-        >
+        <div class="error" *ngIf="isTochedAndRequired(authForm.get('email'))">
           Email is required
         </div>
-        <div class="error" *ngIf="authForm.get('email').hasError('email')">
+        <div class="error" *ngIf="isEmail(authForm.get('email'))">
           Please provide proper email
         </div>
         <mat-form-field class="full-width">
@@ -48,10 +42,7 @@
         </mat-form-field>
         <div
           class="error"
-          *ngIf="
-            authForm.get('password').hasError('required') &&
-            authForm.get('password').touched
-          "
+          *ngIf="isTochedAndRequired(authForm.get('password'))"
         >
           Password is required.
         </div>
@@ -83,17 +74,11 @@
           </mat-form-field>
           <div
             class="error"
-            *ngIf="
-              signUpForm.get('email').touched &&
-              signUpForm.get('email').hasError('required')
-            "
+            *ngIf="isTochedAndRequired(signUpForm.get('email'))"
           >
             Email is required
           </div>
-          <div
-            class="error"
-            *ngIf="signUpForm.get('email').hasError('email')"
-          >
+          <div class="error" *ngIf="isEmail(signUpForm.get('email'))">
             Please provide proper email
           </div>
           <mat-form-field>
@@ -108,10 +93,7 @@
           </mat-form-field>
           <div
             class="error"
-            *ngIf="
-              signUpForm.get('password').hasError('required') &&
-              signUpForm.get('password').touched
-            "
+            *ngIf="isTochedAndRequired(signUpForm.get('password'))"
           >
             Password is required.
           </div>
@@ -127,10 +109,7 @@
           </mat-form-field>
           <div
             class="error"
-            *ngIf="
-              signUpForm.get('firstName').hasError('required') &&
-              signUpForm.get('firstName').touched
-            "
+            *ngIf="isTochedAndRequired(signUpForm.get('firstName'))"
           >
             First Name is required.
           </div>
@@ -146,10 +125,7 @@
           </mat-form-field>
           <div
             class="error"
-            *ngIf="
-              signUpForm.get('lastName').hasError('required') &&
-              signUpForm.get('lastName').touched
-            "
+            *ngIf="isTochedAndRequired(signUpForm.get('lastName'))"
           >
             Last Name is required.
           </div>
@@ -168,8 +144,4 @@
       </form>
     </ng-template>
   </mat-card-content>
-  
-
 </mat-card>
-
-

@@ -1,3 +1,4 @@
+import { HttpClient , HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,15 @@ import { Injectable } from '@angular/core';
 })
 export class AttendanceService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  addAttendance(attendanaceData:any){
+    const sessionToken: any = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', sessionToken);
+    console.log('integration')
+    const {email,status} = attendanaceData
+    let url = `http://localhost:3000/api/v1/attendance/mark/${email}/${status}`
+    console.log(url)
+    return this.http.post(url,attendanaceData,{headers})
+  }
 }

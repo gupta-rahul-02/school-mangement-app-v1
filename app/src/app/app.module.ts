@@ -13,6 +13,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
+// import {provideNativeDateAdapter} from '@angular/material/core';
+import { AttendanceComponent } from './components/attendance/attendance.component';
+import {MatNativeDateModule} from '@angular/material/core';
+import { UsersModule } from './components/users/users.module';
+
 
 
 
@@ -24,6 +29,8 @@ import { UserCardComponent } from './components/user-card/user-card.component';
     ProfileComponent,
     HomeComponent,
     UserCardComponent,
+    AttendanceComponent,
+    UserCardComponent
     
   ],
   imports: [
@@ -33,7 +40,8 @@ import { UserCardComponent } from './components/user-card/user-card.component';
     MatModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatNativeDateModule,UsersModule
   ],
   providers: [],
   bootstrap: [AppComponent]

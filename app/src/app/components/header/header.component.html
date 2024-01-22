@@ -7,11 +7,11 @@
     <button mat-button routerLink="/login" class="item4" *ngIf="!button">Login</button>
     <button mat-button (click)="logout()" routerLink="/" class="item4" *ngIf="button">Logout</button>
     <span class="spacer"></span>
-    <mat-icon class="item5" [mat-menu-trigger-for]="menu" *ngIf="userRoleOfLoggedInUser == 'admin' || 'teacher'">menu</mat-icon>
+    <mat-icon class="item5" [mat-menu-trigger-for]="menu" *ngIf="isShowAdminTeacher()">menu</mat-icon>
     <mat-menu   #menu="matMenu">
-      <button mat-menu-item routerLink="/users/admin" *ngIf="userRoleOfLoggedInUser == 'admin'">All Users Portal</button>
-      <button mat-menu-item routerLink="/users/student" *ngIf="isShowStudentPortal()">Students Portal</button>
-      <button mat-menu-item routerLink="/users/teacher" *ngIf="userRoleOfLoggedInUser == 'admin'">Teachers Portal</button>
+      <button mat-menu-item routerLink="/users/admin" *ngIf="isShowAdmin()">All Users Portal</button>
+      <button mat-menu-item routerLink="/users/student" *ngIf="isShowAdminTeacher()">Students Portal</button>
+      <button mat-menu-item routerLink="/users/teacher" *ngIf="isShowAdmin()">Teachers Portal</button>
     </mat-menu>
     
   </div>

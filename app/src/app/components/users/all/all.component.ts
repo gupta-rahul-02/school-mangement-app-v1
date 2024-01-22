@@ -17,16 +17,7 @@ export class AllComponent {
 
   ngOnInit(): void {
     this.token = this.tokenService.retriveToken()
-    // this.userService.getUser(this.token).subscribe((res) =>{
-       
-    //   this.user = res
-    //   //console.log(this.user)
-    //   // if(this.user.role === 'admin'){
-    //   //   this.userService.getUsers().subscribe((res)  => {
-    //   //     this.userService.usersList.next(res)
-    //   //   })
-    //   // }
-    // })
+  
     this.role = this.route.snapshot.paramMap.get('all')
     console.log(this.role)
     if(this.role === 'admin'){
@@ -45,11 +36,6 @@ export class AllComponent {
         console.log( this.dataSource)
       })
     }
-    
-    // this.userService.usersList.subscribe((res2:any) => {
-    //   this.dataSource = res2.users
-    //   console.log(this.dataSource)
-    // })
   }
 
   displayedColumns: string[] = ['sr.no','name',"email","role","viewProfile","removeUser"]
@@ -64,4 +50,8 @@ export class AllComponent {
       console.log(res)
     })
   }
+
+  // addAttendance(element:any){
+    
+  // }
 }

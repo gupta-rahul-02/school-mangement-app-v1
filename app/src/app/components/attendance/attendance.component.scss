@@ -1,0 +1,16 @@
+.heading {
+    margin-left: 40%;
+}
+.calender{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.table{
+    margin-top: 20px;
+}
+
+.disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+}

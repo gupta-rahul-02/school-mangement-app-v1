@@ -5,7 +5,9 @@ const User = require("../models/user");
 exports.addAttenndance = async(req,res,next) =>{
     try {
         const email = req.params.email;
-        const status = req.params.status
+        const status = req.params.status;
+        const {date} =  req.body
+        console.log(date)
         const user = await User.findOne({email:email});
 
         if(!user){
@@ -14,7 +16,8 @@ exports.addAttenndance = async(req,res,next) =>{
 
         const newAttendance = new Attendance({
             user:user._id,
-            status:status
+            status:status,
+            date: new Date(date)
         })
 
         const savedAttendance = await newAttendance.save()
