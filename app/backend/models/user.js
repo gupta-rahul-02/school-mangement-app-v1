@@ -33,8 +33,19 @@ const userSchema = new mongoose.Schema({
         default:'user'
     },
     attendance:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'attendances'
+        _id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Attendance'
+        },
+        status: {
+            type: String,
+            enum: ['present', 'absent'],
+            default: 'absent'
+        },
+        date: {
+            type: Date,
+            default: Date.now
+        }
     }],
     createdAt:{
         type:Date,
