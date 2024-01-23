@@ -23,11 +23,12 @@ export class ProfileComponent implements OnInit {
   noOfPresentDays:number =0
   noOfAbsentDays:number = 0
 
-    
+
   ngOnInit(): void {
     this.token = this.tokenService.retriveToken();
     this.userService.getUser(this.token).subscribe((res:any) => {
       this.user = res;
+      console.log(this.user)
        this.noOfPresentDays = this.user.attendance.filter((data:any) =>( data.status === 'present')).length
       this.noOfAbsentDays = this.user.attendance.length - this.noOfPresentDays
       console.log(this.noOfAbsentDays)

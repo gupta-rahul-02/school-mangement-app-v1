@@ -4,7 +4,7 @@
   </div>
   
 
-  <button (click)="generateCalendar()">Show</button>
+ 
 <div class="calendar">
     <div *ngFor="let date of dates" class="calendar-cell" [ngClass]="getAttendanceStatus(date)">
       {{ date | date: 'yyyy/MM/dd' }}
