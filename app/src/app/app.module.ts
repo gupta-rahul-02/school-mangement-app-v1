@@ -18,6 +18,7 @@ import { AttendanceComponent } from './components/attendance/attendance.componen
 import {MatNativeDateModule} from '@angular/material/core';
 import { UsersModule } from './components/users/users.module';
 import { DatePipe } from '@angular/common';
+import { CalenderGridComponent } from './components/calender-grid/calender-grid.component';
 
 
 
@@ -31,7 +32,8 @@ import { DatePipe } from '@angular/common';
     HomeComponent,
     UserCardComponent,
     AttendanceComponent,
-    UserCardComponent
+    UserCardComponent,
+    CalenderGridComponent
     
   ],
   imports: [

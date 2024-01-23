@@ -1,0 +1,25 @@
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 15px;
+  }
+  
+  .calendar-cell {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .present-cell {
+    background-color: #8eff8e; 
+  }
+  
+  .absent-cell {
+    background-color: #ff8e8e; 
+  }
+  
+  .empty-cell {
+    background-color: #d2e0e8ea; 
+  }
+  
+  

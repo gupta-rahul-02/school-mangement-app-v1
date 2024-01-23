@@ -20,11 +20,17 @@ export class ProfileComponent implements OnInit {
   propsToRemove = ['__v', '_id', 'createdAt', 'updateAt','attendance','requestRole'];
   userArray: any;
   keyTitle:any
+  noOfPresentDays:number =0
+  noOfAbsentDays:number = 0
 
+    
   ngOnInit(): void {
     this.token = this.tokenService.retriveToken();
     this.userService.getUser(this.token).subscribe((res:any) => {
       this.user = res;
+       this.noOfPresentDays = this.user.attendance.filter((data:any) =>( data.status === 'present')).length
+      this.noOfAbsentDays = this.user.attendance.length - this.noOfPresentDays
+      console.log(this.noOfAbsentDays)
       this.userService.userRole.next(this.user.role)
       // this.userArray = Object.keys(this.user)
       //   .filter((key) => !this.propsToRemove.includes(key))

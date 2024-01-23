@@ -3,7 +3,7 @@
     <span class="item1" routerLink="/">School Management</span>
     <span class="spacer"></span>
     <button mat-button routerLink="/profile" class="item2">Profile</button>
-    <button mat-button routerLink="/attendance" class="item3">Attendance</button>
+    <button mat-button routerLink="/attendance" class="item3" *ngIf="isShowAdminTeacher()">Attendance</button>
     <button mat-button routerLink="/login" class="item4" *ngIf="!button">Login</button>
     <button mat-button (click)="logout()" routerLink="/" class="item4" *ngIf="button">Logout</button>
     <span class="spacer"></span>

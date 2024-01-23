@@ -48,13 +48,8 @@ constructor(private userService:UserService, private attendanceService:Attendanc
    var day = ("0" + (date.getDate())).slice(-2);
    this.selectedDate = [date.getFullYear(),month,day].join("-")
    let dateCopy = this.formateDate(this.selectedDate)
-   console.log(dateCopy)
-   let dateData = {date: this.selectedDate}
-  //  this.attendanceService.getUserListOfSpecificdate(dateData).subscribe((res:any) =>{
-  //   console.log(res.response)
-  //   this.dataSource = res.response
-  //  })
    this.isDateSelected = false
+
    this.dataSource.map((data:any) =>{
     data.attendance.map((atttendData:any) =>{
       if(atttendData.date === dateCopy){
@@ -72,8 +67,6 @@ constructor(private userService:UserService, private attendanceService:Attendanc
   }
 
   formateDate(dateString:string):string {
-    // const date = new Date(dateString)
-    // return this.datePipe.transform(date, 'yyyy-MM-ddTHH:mm:ss.SSSZ') || '';
     const date = new Date(dateString);
     date.setUTCHours(0,0,0,0);
     const newdate =  date.toISOString()

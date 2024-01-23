@@ -19,12 +19,14 @@
                 <hr>
             </div>
             <div>
-                <h3>Attendance:- {{user.attendance}}</h3>
+                <h3>Total Days:- {{user.attendance.length}}</h3>
+                <h4>Present Days:- {{noOfPresentDays}}</h4>
+                <h4>Absent Days:- {{noOfAbsentDays}}</h4>
             </div>
         </div>
         
     </mat-card-content>
     
 </mat-card>
-
+<app-calender-grid [userData]="user"></app-calender-grid>
 <!-- <app-users-table></app-users-table> -->
