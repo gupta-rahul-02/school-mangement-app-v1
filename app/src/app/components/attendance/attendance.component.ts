@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AttendanceService } from 'src/app/services/http/attendance/attendance.service';
 import { UserService } from 'src/app/services/http/user/user.service';
@@ -13,12 +14,11 @@ export class AttendanceComponent implements OnInit {
   minDate:Date
   maxDate:Date
   displayedColumns: string[] = ['sr.no','name',"email","status"]
-  isDateSelected:boolean = false
+  isDateSelected:boolean = true
   presentCount:number =0
   absentCount:number =0
-  presentButtonDisable:boolean=false
-  absentButtonDisable:boolean=false
-constructor(private userService:UserService, private attendanceService:AttendanceService){
+
+constructor(private userService:UserService, private attendanceService:AttendanceService, private datePipe:DatePipe){
   const currentYear = new Date().getFullYear();
   this.minDate = new Date(currentYear - 1,0,1);
   this.maxDate = new Date(currentYear + 1, 11, 31);
@@ -31,21 +31,55 @@ constructor(private userService:UserService, private attendanceService:Attendanc
       this.userService.usersList.next(res)
     })
     this.userService.usersList.subscribe((res2:any) => {
-      this.dataSource = res2.users.filter((user:any) => user.role ==='student')
-      console.log(this.dataSource)
+      this.dataSource = res2.users.filter((user:any) => user.role ==='student').map((user:any) =>{
+        return {
+          ...user,
+          isPresentButtonDisabbled:false,
+          isAbsentButtonDisabbled:false
+        }
+      })
+       console.log(this.dataSource)
     })
   }
   onDateSelected(){
+   console.log(this.selectedDate)
    var date  = new Date(this.selectedDate)
    var month = ("0" + (date.getMonth() + 1)).slice(-2)
    var day = ("0" + (date.getDate())).slice(-2);
    this.selectedDate = [date.getFullYear(),month,day].join("-")
-   this.isDateSelected = true
-   console.log(this.selectedDate)
-   console.log(this.isDateSelected)
+   let dateCopy = this.formateDate(this.selectedDate)
+   console.log(dateCopy)
+   let dateData = {date: this.selectedDate}
+  //  this.attendanceService.getUserListOfSpecificdate(dateData).subscribe((res:any) =>{
+  //   console.log(res.response)
+  //   this.dataSource = res.response
+  //  })
+   this.isDateSelected = false
+   this.dataSource.map((data:any) =>{
+    data.attendance.map((atttendData:any) =>{
+      if(atttendData.date === dateCopy){
+        console.log(atttendData)
+        if(atttendData.status === 'absent'){
+          data.isAbsentButtonDisabbled = true
+        }else if(atttendData.status === 'present'){
+          data.isPresentButtonDisabbled = true
+        }
+        
+      }
+    })
+   })
+
   }
 
-  
+  formateDate(dateString:string):string {
+    // const date = new Date(dateString)
+    // return this.datePipe.transform(date, 'yyyy-MM-ddTHH:mm:ss.SSSZ') || '';
+    const date = new Date(dateString);
+    date.setUTCHours(0,0,0,0);
+    const newdate =  date.toISOString()
+    console.log(newdate)
+    return newdate
+  }
 
   addAttendance(element:any,status:any){
     console.log('frontend')
@@ -57,15 +91,15 @@ constructor(private userService:UserService, private attendanceService:Attendanc
     if(status === 'present'){
       this.presentCount = 1
       this.absentCount =0
-      this.presentButtonDisable = true
-      this.absentButtonDisable = false
+      element.isPresentButtonDisabbled = true
+      element.isAbsentButtonDisabbled = false
     }else{
       this.absentCount = 1
       this.presentCount =0
-      this.absentButtonDisable = true
-      this.presentButtonDisable = false
+      element.isAbsentButtonDisabbled = true
+      element.isPresentButtonDisabbled = false
     }
-    console.log(attendanaceData.date)
+    console.log(attendanaceData)
     this.attendanceService.addAttendance(attendanaceData).subscribe((res) =>{
       console.log(res)
     })

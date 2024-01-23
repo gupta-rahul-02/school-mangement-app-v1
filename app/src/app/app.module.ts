@@ -17,6 +17,7 @@ import { UserCardComponent } from './components/user-card/user-card.component';
 import { AttendanceComponent } from './components/attendance/attendance.component';
 import {MatNativeDateModule} from '@angular/material/core';
 import { UsersModule } from './components/users/users.module';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -43,7 +44,7 @@ import { UsersModule } from './components/users/users.module';
     HttpClientModule,
     MatNativeDateModule,UsersModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
