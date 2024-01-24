@@ -38,7 +38,6 @@ export class AuthFormComponent implements OnInit {
 
   signUp() {
     this.formData = this.signUpForm.value;
-    console.log(this.formData);
     this.userService.signup(this.formData).subscribe((res: any) => {
       this.tokenService.store(res.token);
       this.userService.buttonFlag.next(true);

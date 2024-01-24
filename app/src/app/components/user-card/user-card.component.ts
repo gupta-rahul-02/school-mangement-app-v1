@@ -15,10 +15,13 @@ export class UserCardComponent implements OnInit {
   ngOnInit(): void {
     this.userService.user.subscribe((res:any) =>{
       console.log(res)
+      delete res.isPresentButtonDisabbled
+      delete res.isAbsentButtonDisabbled
       this.user = res
       this.noOfPresentDays = this.user.attendance.filter((data:any) =>( data.status === 'present')).length
       this.noOfAbsentDays = this.user.attendance.length - this.noOfPresentDays
       this.userService.userArray(res).subscribe((res2) =>{
+        console.log(res2)
         this.userArray = res2
       })
 

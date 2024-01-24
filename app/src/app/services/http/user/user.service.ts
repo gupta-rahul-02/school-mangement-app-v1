@@ -39,22 +39,13 @@ export class UserService {
   }
 
 
-  // logout() {
-  //   console.log('logout')
-  //   const sessionToken: any = sessionStorage.getItem('token');
-  //   const headers = new HttpHeaders().set('Authorization', sessionToken);
-  //   return this.http.get('http://localhost:3000/api/v1/user/logout', {
-  //     headers,
-  //   });
-  // }
+  
 
   logout(){
-    console.log('frontend')
     return this.http.get('http://localhost:3000/api/v1/user/logout')
   }
 
   delete(obj: any) {
-    console.log(obj);
     const url = `http://localhost:3000/api/v1/user/delete/${obj}`;
     return this.http.delete(url);
   }

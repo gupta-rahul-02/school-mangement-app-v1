@@ -13,7 +13,6 @@ export class TokenService {
   }
 
   logout(){
-    console.log(document.cookie)
     window.sessionStorage.clear()
   }
 

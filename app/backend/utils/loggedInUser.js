@@ -12,7 +12,6 @@ exports.loggedInUser = async(req,res) =>{
         const user2 = await user.findById(decoded.id)
        return user2
     } catch (error) {
-        console.log(error)
         res.json({
             message:error.message
         })

@@ -33,10 +33,6 @@ export class ProfileComponent implements OnInit {
       this.noOfAbsentDays = this.user.attendance.length - this.noOfPresentDays
       console.log(this.noOfAbsentDays)
       this.userService.userRole.next(this.user.role)
-      // this.userArray = Object.keys(this.user)
-      //   .filter((key) => !this.propsToRemove.includes(key))
-      //   .map((key) => ({ [key]: this.user[key] }));
-
       this.userService.userArray(res).subscribe((res1) =>{
         this.userArray = res1
         console.log(res1)

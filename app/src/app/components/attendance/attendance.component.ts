@@ -19,7 +19,7 @@ export class AttendanceComponent implements OnInit {
   dataSource: any;
   minDate: Date;
   maxDate: Date;
-  displayedColumns: string[] = ['sr.no', 'name', 'email', 'status'];
+  displayedColumns: string[] = ['sr.no', 'name', 'email', 'status', 'view'];
   isDateSelected: boolean = true;
   presentCount: number = 0;
   absentCount: number = 0;
@@ -52,7 +52,6 @@ export class AttendanceComponent implements OnInit {
   }
   onDateSelected() {
     var date = new Date(this.selectedDate);
-    console.log(date)
     if(this.isAllowed(date)){
       this.dataSeed(true)
       this.dataSource.isPresentButtonDisabbled = true
@@ -62,26 +61,13 @@ export class AttendanceComponent implements OnInit {
     var month = ('0' + (date.getMonth() + 1)).slice(-2);
     var day = ('0' + date.getDate()).slice(-2);
     this.selectedDate = [date.getFullYear(), month, day].join('-');
-    console.log(typeof this.selectedDate)
    
     let dateCopy = this.formateDate(this.selectedDate);
     this.isDateSelected = false;
-    // this.userService.usersList.subscribe((res2: any) => {
-    //   this.dataSource = res2.users
-    //     .filter((user: any) => user.role === 'student')
-    //     .map((user: any) => {
-    //       return {
-    //         ...user,
-    //         isPresentButtonDisabbled: false,
-    //         isAbsentButtonDisabbled: false,
-    //       };
-    //     });
-    // });
     this.dataSeed(false)
     this.dataSource.map((data: any) => {
       data.attendance.map((atttendData: any) => {
         if (atttendData.date === dateCopy) {
-          console.log(atttendData);
           if (atttendData.status === 'absent') {
             data.isAbsentButtonDisabbled = true;
           } else if (atttendData.status === 'present') {
@@ -99,6 +85,10 @@ export class AttendanceComponent implements OnInit {
     return newdate;
   }
 
+  viewProfile(element:any){
+    this.userService.user.next(element)
+    
+  }
   dataSeed(flag:boolean){
     // let dateCopy = this.formateDate(this.selectedDate);
     // this.isDateSelected = false;
@@ -116,7 +106,6 @@ export class AttendanceComponent implements OnInit {
     console.log(this.dataSource)
   }
   isAllowed(inputDate:Date){
-    console.log(inputDate)
     let day = inputDate.toString().substring(0,3)
     let date = inputDate.toString().substring(7,10)
     let today:any = new Date
@@ -125,7 +114,7 @@ export class AttendanceComponent implements OnInit {
       return true
     }
     if(parseInt(date) < today-7){
-      console.log('enter')
+      
       return true
     }
     else{
@@ -135,7 +124,7 @@ export class AttendanceComponent implements OnInit {
   }
 
   addAttendance(element: any, status: any) {
-    console.log('frontend');
+   
     let attendanaceData = {
       email: element.email,
       status: status,
@@ -152,9 +141,8 @@ export class AttendanceComponent implements OnInit {
       element.isAbsentButtonDisabbled = true;
       element.isPresentButtonDisabbled = false;
     }
-    console.log(attendanaceData);
     this.attendanceService.addAttendance(attendanaceData).subscribe((res) => {
-      console.log(res);
+    
     });
   }
 }

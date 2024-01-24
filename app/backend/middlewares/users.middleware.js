@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 exports.isLoggedIn = async(req,res,next)=>{
 
     const token = req.cookies.token || req.header("Authorization").replace("Bearer","");
-    console.log(token + 'r')
     if(!token){
         res.send('Login first to access')
     }
