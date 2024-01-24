@@ -46,6 +46,19 @@ export class ProfileComponent implements OnInit {
    
   }
 
+  showAttendance(){
+    if(this.user.role === 'admin'){
+      console.log(this.user.role)
+      return false
+    }if(this.user.role === 'teacher'){
+      return false
+    }
+    else{
+      console.log(this.user.role)
+      return true
+    }
+  }
+
   getTitleCase(key:any){
     this.userService.getTitleCase(key).subscribe((res) =>{
       this.keyTitle = res

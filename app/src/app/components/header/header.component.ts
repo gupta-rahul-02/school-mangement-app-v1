@@ -42,6 +42,9 @@ export class HeaderComponent implements OnInit {
     );
   }
 
+  isDisabledForStudent(){
+    return this.userRoleOfLoggedInUser == 'student'
+  }
   isShowAdmin() {
     return this.userRoleOfLoggedInUser == 'admin';
   }
