@@ -52,22 +52,32 @@ export class AttendanceComponent implements OnInit {
   }
   onDateSelected() {
     var date = new Date(this.selectedDate);
+    console.log(date)
+    if(this.isAllowed(date)){
+      this.dataSeed(true)
+      this.dataSource.isPresentButtonDisabbled = true
+      this.dataSource.isAbsentButtonDisabbled = true
+      return
+    }
     var month = ('0' + (date.getMonth() + 1)).slice(-2);
     var day = ('0' + date.getDate()).slice(-2);
     this.selectedDate = [date.getFullYear(), month, day].join('-');
+    console.log(typeof this.selectedDate)
+   
     let dateCopy = this.formateDate(this.selectedDate);
     this.isDateSelected = false;
-    this.userService.usersList.subscribe((res2: any) => {
-      this.dataSource = res2.users
-        .filter((user: any) => user.role === 'student')
-        .map((user: any) => {
-          return {
-            ...user,
-            isPresentButtonDisabbled: false,
-            isAbsentButtonDisabbled: false,
-          };
-        });
-    });
+    // this.userService.usersList.subscribe((res2: any) => {
+    //   this.dataSource = res2.users
+    //     .filter((user: any) => user.role === 'student')
+    //     .map((user: any) => {
+    //       return {
+    //         ...user,
+    //         isPresentButtonDisabbled: false,
+    //         isAbsentButtonDisabbled: false,
+    //       };
+    //     });
+    // });
+    this.dataSeed(false)
     this.dataSource.map((data: any) => {
       data.attendance.map((atttendData: any) => {
         if (atttendData.date === dateCopy) {
@@ -86,8 +96,42 @@ export class AttendanceComponent implements OnInit {
     const date = new Date(dateString);
     date.setUTCHours(0, 0, 0, 0);
     const newdate = date.toISOString();
-
     return newdate;
+  }
+
+  dataSeed(flag:boolean){
+    // let dateCopy = this.formateDate(this.selectedDate);
+    // this.isDateSelected = false;
+    this.userService.usersList.subscribe((res2: any) => {
+      this.dataSource = res2.users
+        .filter((user: any) => user.role === 'student')
+        .map((user: any) => {
+          return {
+            ...user,
+            isPresentButtonDisabbled: flag,
+            isAbsentButtonDisabbled: flag,
+          };
+        });
+    });
+    console.log(this.dataSource)
+  }
+  isAllowed(inputDate:Date){
+    console.log(inputDate)
+    let day = inputDate.toString().substring(0,3)
+    let date = inputDate.toString().substring(7,10)
+    let today:any = new Date
+    today = today.toString().substring(7,10)
+    if(day==='Sun'){
+      return true
+    }
+    if(parseInt(date) < today-7){
+      console.log('enter')
+      return true
+    }
+    else{
+      return false
+    }
+    
   }
 
   addAttendance(element: any, status: any) {
