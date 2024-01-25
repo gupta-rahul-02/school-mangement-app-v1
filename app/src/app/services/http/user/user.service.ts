@@ -58,6 +58,9 @@ export class UserService {
       'updateAt',
       'attendance',
       'requestRole',
+      'isAbsentButtonDisabbled',
+      'isPresentButtonDisabbled'
+      
     ];
     const userArray = Object.keys(user)
       .filter((key) => !propsToRemove.includes(key))

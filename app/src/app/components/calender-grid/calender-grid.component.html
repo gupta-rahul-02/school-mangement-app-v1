@@ -6,9 +6,11 @@
 
  
 <div class="calendar">
-    <div *ngFor="let date of dates" class="calendar-cell" [ngClass]="getAttendanceStatus(date)">
+    <div  *ngFor="let date of dates" class="calendar-cell" [ngClass]="getAttendanceStatus(date)" (click)="openModal(date,userData)">
       {{ date | date: 'yyyy/MM/dd' }}
     </div>
   </div>
+
+  
   
   

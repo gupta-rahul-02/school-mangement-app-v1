@@ -18,7 +18,7 @@
                 </div>
                 <hr>
             </div>
-            <div >
+            <div *ngIf="showAttendance()">
                 <!-- <h3>Attendance:- {{user.attendance}}</h3> -->
                 <h3>Total Days:- {{user.attendance.length}}</h3>
                 <h4>Present Days:- {{noOfPresentDays}}</h4>
@@ -29,5 +29,5 @@
     </mat-card-content>
     
 </mat-card>
-
+<app-calender-grid [userData]="user"></app-calender-grid>
 <!-- <app-users-table></app-users-table> -->

@@ -19,6 +19,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { UsersModule } from './components/users/users.module';
 import { DatePipe } from '@angular/common';
 import { CalenderGridComponent } from './components/calender-grid/calender-grid.component';
+import { PopupComponent } from './components/popup/popup.component';
 
 
 
@@ -33,7 +34,9 @@ import { CalenderGridComponent } from './components/calender-grid/calender-grid.
     UserCardComponent,
     AttendanceComponent,
     UserCardComponent,
-    CalenderGridComponent
+    CalenderGridComponent,
+    PopupComponent
+ 
     
   ],
   imports: [
@@ -44,7 +47,8 @@ import { CalenderGridComponent } from './components/calender-grid/calender-grid.
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatNativeDateModule,UsersModule
+    MatNativeDateModule,UsersModule,
+    
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

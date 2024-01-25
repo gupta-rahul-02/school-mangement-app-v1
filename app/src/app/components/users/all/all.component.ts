@@ -25,6 +25,7 @@ export class AllComponent {
         
       })
     }else if(this.role === 'student'){
+      console.log('enter')
       this.userService.usersList.subscribe((res:any) => {
         this.dataSource =res.users.filter((user: any) => user.role === 'student')
         

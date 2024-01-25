@@ -15,8 +15,8 @@ export class UserCardComponent implements OnInit {
   ngOnInit(): void {
     this.userService.user.subscribe((res:any) =>{
       console.log(res)
-      delete res.isPresentButtonDisabbled
-      delete res.isAbsentButtonDisabbled
+      // delete res.isPresentButtonDisabbled
+      // delete res.isAbsentButtonDisabbled
       this.user = res
       this.noOfPresentDays = this.user.attendance.filter((data:any) =>( data.status === 'present')).length
       this.noOfAbsentDays = this.user.attendance.length - this.noOfPresentDays
@@ -28,6 +28,18 @@ export class UserCardComponent implements OnInit {
     } )
   }
 
+  showAttendance(){
+    if(this.user.role === 'admin'){
+      console.log(this.user.role)
+      return false
+    }if(this.user.role === 'teacher'){
+      return false
+    }
+    else{
+      console.log(this.user.role)
+      return true
+    }
+  }
   getTitleCase(key:any){
     this.userService.getTitleCase(key).subscribe((res) =>{
       this.keyTitle = res

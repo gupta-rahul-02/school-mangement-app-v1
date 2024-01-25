@@ -12,7 +12,7 @@ import {MatTableModule} from '@angular/material/table'
 import {MatMenuModule} from '@angular/material/menu';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
-
+import {MatDialogModule} from '@angular/material/dialog'; 
 const material = [
   MatToolbarModule,
   MatIconModule,
@@ -24,7 +24,8 @@ const material = [
   MatMenuModule,
   MatTableModule,
   MatDatepickerModule,
-  MatSelectModule
+  MatSelectModule,
+  MatDialogModule
   
   // MatIcon
 ]

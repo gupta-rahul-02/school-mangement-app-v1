@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-
+import {MatDialog,MatDialogRef} from '@angular/material/dialog'
+import { PopupComponent } from '../popup/popup.component';
+import { AppService } from 'src/app/services/application/app.service';
 @Component({
   selector: 'app-calender-grid',
   templateUrl: './calender-grid.component.html',
@@ -12,7 +14,7 @@ export class CalenderGridComponent implements OnInit{
   dates:Date[] = [];
   selectedMonth!: number;
   attendanceArray:any[] =[]
-  constructor(){
+  constructor(private  dialog:  MatDialog, private appServices:AppService){
   }
 
   ngOnInit(): void {
@@ -55,4 +57,26 @@ export class CalenderGridComponent implements OnInit{
       return 'empty-cell'
     }
   }
+
+  openModal(date:any,userData:any){
+    console.log(userData.attendance)
+    
+    console.log(date)
+    date = this.appServices.dateConverter(date)
+
+    const a = userData.attendance.filter((day:any) => day.date === date)
+    console.log(a[0].status)
+    if(a[0].status === 'present'){
+      a[0].isPresentButtonDisabbled = true
+    }else{
+      a[0].isAbsentButtonDisabbled = true
+    }
+    
+    console.log(a)
+    this.dialog.open(PopupComponent,{data:{
+      message:date,
+      status:a[0]
+    }})
+  }
+  
 }
