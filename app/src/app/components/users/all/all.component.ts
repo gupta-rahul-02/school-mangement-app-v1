@@ -17,8 +17,12 @@ export class AllComponent {
 
   ngOnInit(): void {
     this.token = this.tokenService.retriveToken()
-  
+    this.userService.getUser(this.token).subscribe((res:any) =>{
+      console.log(res)
+      this.userService.userRole.next(res.role)
+    })
     this.role = this.route.snapshot.paramMap.get('all')
+    this.userService.buttonFlag.next(true);
     if(this.role === 'admin'){
       this.userService.usersList.subscribe((res2:any) => {
         this.dataSource = res2.users
