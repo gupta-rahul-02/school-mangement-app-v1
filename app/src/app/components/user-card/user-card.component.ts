@@ -12,6 +12,7 @@ export class UserCardComponent implements OnInit {
  user:any
  noOfPresentDays:number =0
   noOfAbsentDays:number = 0
+  
   ngOnInit(): void {
     this.userService.user.subscribe((res:any) =>{
       console.log(res)
@@ -30,13 +31,13 @@ export class UserCardComponent implements OnInit {
 
   showAttendance(){
     if(this.user.role === 'admin'){
-      console.log(this.user.role)
+      
       return false
     }if(this.user.role === 'teacher'){
       return false
     }
     else{
-      console.log(this.user.role)
+      
       return true
     }
   }

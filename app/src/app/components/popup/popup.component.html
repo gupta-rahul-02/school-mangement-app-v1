@@ -1,9 +1,9 @@
 <h1  mat-dialog-title>Message</h1>
     <mat-dialog-content>
         
-        <button mat-raised-button color="primary"  [disabled]="data.status.isPresentButtonDisabbled">Present</button>
-        <button mat-raised-button color="warn" [disabled]="data.status.isAbsentButtonDisabbled">Absent</button>  
+        <button mat-raised-button color="primary"  [disabled]="data.user.isPresentButtonDisabbled" (click)="updateAttendance(data.user,'present',data.date)">Present</button>
+        <button mat-raised-button color="warn" [disabled]="data.user.isAbsentButtonDisabbled" (click)="updateAttendance(data.user,'absent',data.date)">Absent</button>  
     </mat-dialog-content>
 <mat-dialog-actions>
-    <button  mat-raised-button (click)="closeMe()">Close</button>
+    <button  mat-raised-button (click)="viewProfile(data.user)" (click)="closeMe()">Close</button>
 </mat-dialog-actions>

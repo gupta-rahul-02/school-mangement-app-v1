@@ -6,7 +6,6 @@ exports.addAttenndance = async (req, res, next) => {
     const email = req.params.email;
     const status = req.params.status;
     const { date } = req.body;
-
     const user = await User.findOne({ email: email });
     if (!user) {
       throw new Error("User Not Found");

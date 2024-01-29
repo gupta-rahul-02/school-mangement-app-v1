@@ -67,15 +67,15 @@ export class CalenderGridComponent implements OnInit{
     const a = userData.attendance.filter((day:any) => day.date === date)
     console.log(a[0].status)
     if(a[0].status === 'present'){
-      a[0].isPresentButtonDisabbled = true
+      userData.isPresentButtonDisabbled = true
     }else{
-      a[0].isAbsentButtonDisabbled = true
+      userData.isAbsentButtonDisabbled = true
     }
     
-    console.log(a)
+    console.log(userData)
     this.dialog.open(PopupComponent,{data:{
-      message:date,
-      status:a[0]
+      date:date,
+      user:userData
     }})
   }
   

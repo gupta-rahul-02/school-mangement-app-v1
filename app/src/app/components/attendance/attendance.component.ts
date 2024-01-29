@@ -6,6 +6,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { AppService } from 'src/app/services/application/app.service';
 import { AttendanceService } from 'src/app/services/http/attendance/attendance.service';
 import { UserService } from 'src/app/services/http/user/user.service';
 
@@ -27,7 +28,8 @@ export class AttendanceComponent implements OnInit {
   constructor(
     private userService: UserService,
     private attendanceService: AttendanceService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private appService:AppService
   ) {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 1, 0, 1);
@@ -50,9 +52,12 @@ export class AttendanceComponent implements OnInit {
         });
     });
   }
+
   onDateSelected() {
+    console.log('true 1 ------')
     var date = new Date(this.selectedDate);
     if(this.isAllowed(date)){
+      console.log('true -----')
       this.dataSeed(true)
       this.dataSource.isPresentButtonDisabbled = true
       this.dataSource.isAbsentButtonDisabbled = true
@@ -87,7 +92,6 @@ export class AttendanceComponent implements OnInit {
 
   viewProfile(element:any){
     this.userService.user.next(element)
-    
   }
   dataSeed(flag:boolean){
     // let dateCopy = this.formateDate(this.selectedDate);
@@ -105,15 +109,27 @@ export class AttendanceComponent implements OnInit {
     });
     console.log(this.dataSource)
   }
+
   isAllowed(inputDate:Date){
+   
     let day = inputDate.toString().substring(0,3)
+   
     let date = inputDate.toString().substring(7,10)
+    
+    let month = inputDate.toString().substring(4,8)
+   
     let today:any = new Date
+    let presentMonth = today.toString().substring(4,8)
     today = today.toString().substring(7,10)
+    
+    
     if(day==='Sun'){
       return true
     }
-    if(parseInt(date) < today-7){
+    if(parseInt(date) > today || month !== presentMonth){
+      return true
+    }
+    if(parseInt(date) < today-7 && month === presentMonth){
       
       return true
     }
@@ -123,26 +139,27 @@ export class AttendanceComponent implements OnInit {
     
   }
 
-  addAttendance(element: any, status: any) {
-   
-    let attendanaceData = {
-      email: element.email,
-      status: status,
-      date: this.selectedDate,
-    };
-    if (status === 'present') {
-      this.presentCount = 1;
-      this.absentCount = 0;
-      element.isPresentButtonDisabbled = true;
-      element.isAbsentButtonDisabbled = false;
-    } else {
-      this.absentCount = 1;
-      this.presentCount = 0;
-      element.isAbsentButtonDisabbled = true;
-      element.isPresentButtonDisabbled = false;
-    }
-    this.attendanceService.addAttendance(attendanaceData).subscribe((res) => {
-    
-    });
+  addAttendance(data:any,status:any){
+    this.appService.addAttendance(data,status,this.selectedDate)
+
   }
+  // addAttendance(data: any, status: any) {
+  //   console.log(this.selectedDate.length)
+   
+  //   let attendanaceData = {
+  //     email: data.email,
+  //     status: status,
+  //     date: this.selectedDate,
+  //   };
+  //   if (status === 'present') {
+  //     data.isPresentButtonDisabbled = true;
+  //     data.isAbsentButtonDisabbled = false;
+  //   } else {
+  //     data.isAbsentButtonDisabbled = true;
+  //     data.isPresentButtonDisabbled = false;
+  //   }
+  //   this.attendanceService.addAttendance(attendanaceData).subscribe((res) => {
+    
+  //   });
+  // }
 }
