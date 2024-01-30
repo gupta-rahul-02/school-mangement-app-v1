@@ -129,6 +129,13 @@
           >
             Last Name is required.
           </div>
+          <input
+          type="file"
+          placeholder="Choose File"
+          (change)="onFileSelected($event)"
+          formControlName="file"
+        />
+         
         </div>
         <button
           mat-raised-button

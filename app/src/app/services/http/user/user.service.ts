@@ -59,7 +59,8 @@ export class UserService {
       'attendance',
       'requestRole',
       'isAbsentButtonDisabbled',
-      'isPresentButtonDisabbled'
+      'isPresentButtonDisabbled',
+      'path'
       
     ];
     const userArray = Object.keys(user)

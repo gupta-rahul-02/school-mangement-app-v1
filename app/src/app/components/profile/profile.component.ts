@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
 
   token: string = '';
   user: any;
-  propsToRemove = ['__v', '_id', 'createdAt', 'updateAt','attendance','requestRole'];
+  propsToRemove = ['__v', '_id', 'createdAt', 'updateAt','attendance','requestRole','path'];
   userArray: any;
   keyTitle:any
   noOfPresentDays:number =0

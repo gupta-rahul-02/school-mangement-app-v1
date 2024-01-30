@@ -1,6 +1,49 @@
 const User = require("../models/user");
 const cookieToken = require("../utils/cookieToken");
 const jwt = require("jsonwebtoken");
+// const admin = require('firebase-admin')
+
+const admin = require('firebase-admin')
+const path = require('path')
+
+
+exports.uploader = async(req,res,next) =>{
+const email = req.body.email;
+const user = await User.findOne({email:email})
+if(!user){
+  return res.status(400).json({message:'User does not exists'});
+}
+console.log(user)
+
+const bucket = admin.storage().bucket();
+if(!req.file){
+  return res.status(400).json({ message: 'No file provided' });
+}
+
+const file = req.file;
+const fileName = Date.now() + path.extname(file.originalname);
+const fileUpload = bucket.file(fileName);
+
+const blobStream = fileUpload.createWriteStream({
+metadata: {
+contentType: file.mimetype
+}
+});
+
+blobStream.on('error', (error) => {
+console.error(error);
+res.status(500).json({ message: 'Error uploading file' });
+});
+
+ blobStream.on('finish', async() => {
+const publicUrl = `https://storage.googleapis.com/${bucket.name}/${fileUpload.name}`;
+user.path = publicUrl
+const updatedUser =  await user.save()
+res.status(200).json({ message: 'File uploaded successfully', url: publicUrl, user:updatedUser });
+});
+
+blobStream.end(file.buffer);
+}
 
 exports.signUp = async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
@@ -138,3 +181,30 @@ exports.deleteuser = async (req, res, next) => {
     });
   }
 };
+
+// exports.imageUpload = async(req,res,next) =>{
+//   try {
+//     const bucket = admin.storage().bucket();
+//     const file = bucket.file(req.file.originalname)
+
+//     const stream = file.createWriteStream({
+//       metadata:{
+//         contentType:req.file.mimetype,
+//       }
+//     })
+
+//     stream.end(req.file.buffer)
+
+//     stream.on('finish',()=>{
+//       res.status(200).send('File uploaded successfully')
+//     })
+
+//     stream.on('error',(err) =>{
+//       console.log(error)
+//       res.status(500).send('Error uploading file')
+//     })
+//   } catch (error) {
+//     console.error(error)
+//     res.status(500).send('Inter server error')
+//   }
+// }

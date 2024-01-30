@@ -3,7 +3,7 @@
     <input type="number" id="month" [(ngModel)]="selectedMonth" (change)="generateCalendar()" />
   </div>
   
-
+<h1>{{monthToShow}}</h1> 
  
 <div class="calendar">
     <div  *ngFor="let date of dates" class="calendar-cell" [ngClass]="getAttendanceStatus(date)" (click)="openModal(date,userData)">

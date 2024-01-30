@@ -33,11 +33,13 @@ export class AuthFormComponent implements OnInit {
       password: new FormControl('', [Validators.required]),
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
+      file: new FormControl(null)
     });
   }
 
   signUp() {
     this.formData = this.signUpForm.value;
+    console.log(this.signUpForm.value)
     this.userService.signup(this.formData).subscribe((res: any) => {
       this.tokenService.store(res.token);
       this.userService.buttonFlag.next(true);
@@ -69,5 +71,12 @@ export class AuthFormComponent implements OnInit {
 
   isTochedAndRequired(inputControl:any):boolean{
     return inputControl.hasError('required') && inputControl.touched
+  }
+  onFileSelected(event: any) {
+    const fileInput = event.target;
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      this.authForm.patchValue({ file });
+    }
   }
 }

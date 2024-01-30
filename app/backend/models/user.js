@@ -32,6 +32,9 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:'user'
     },
+    path:{
+        type:String,
+    },
     attendance:[{
         _id: {
             type: mongoose.Schema.Types.ObjectId,

@@ -14,18 +14,27 @@ export class CalenderGridComponent implements OnInit{
   dates:Date[] = [];
   selectedMonth!: number;
   attendanceArray:any[] =[]
+  monthToShow:any
   constructor(private  dialog:  MatDialog, private appServices:AppService){
   }
 
   ngOnInit(): void {
     this.selectedMonth = 1;
+    this.getMonth(this.selectedMonth)
     this.generateCalendar();
     this.attendanceArray = this.userData.attendance
   }
 
   @Input() userData:any
 
+getMonth(monthNumber:any){
+  const date =  new Date();
+  date.setMonth(monthNumber - 1);
+  this.monthToShow =  date.toLocaleString('en-US', { month: 'long' });
+}
+
   generateCalendar() {
+    this.getMonth(this.selectedMonth)
    this.startDate = new Date();
    this.startDate.setDate(1);
    this.startDate.setMonth(this.selectedMonth - 1);

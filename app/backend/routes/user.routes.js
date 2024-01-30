@@ -8,15 +8,21 @@ const {
   getLoggedInUser,
   logout,
   deleteuser,
+  imageUpload,
+  uploader,
 } = require("../controllers/user.controller");
 const { customRoles, isLoggedIn } = require("../middlewares/users.middleware");
+const multer = require('multer')
 const router = express.Router();
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 //post routes
 router.post("/signup",signUp);
 router.post("/login",login);
+router.post("/upload",upload.single('image'),uploader)
 
-
+router.post("/upload",upload.single('image'),uploader)
 //get routes
 router.get("/users",isLoggedIn,customRoles("admin","teacher"),getUsers);
 router.get("/logout",logout);
